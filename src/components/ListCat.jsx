@@ -36,6 +36,12 @@ const ListCat = () => {
           <p>
             <strong>Origin:</strong> {item.origin}
           </p>
+          <p>
+            <strong>Description:</strong> {item.description}
+          </p>
+          <p>
+            <strong>Temprament:</strong> {item.temperament}
+          </p>
         </div>
       ))}
 
