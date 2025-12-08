@@ -67,6 +67,7 @@ const CatProvider = ({ children }) => {
     setPage,
     setLimit,
     setDeletes,
+    favorite,
   };
 
   return (
