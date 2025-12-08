@@ -7,7 +7,15 @@ const ListCat = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [deletes, setDeletes] = useState([]);
-  const { listCat, deleteCat } = useCatContext();
+  console.log("isi delete", deletes);
+
+  const {
+    listCat,
+    deleteCat,
+    addToFavorites,
+    alreadyOnFavorites,
+    removeFavorite,
+  } = useCatContext();
   console.log("isi listcat", listCat);
 
   const {
@@ -49,6 +57,7 @@ const ListCat = () => {
 
       {allCats.map((item) => {
         const isLocal = listCat.some((cat) => cat.id === item.id);
+        console.log("isi islocal", isLocal);
 
         return (
           <div
@@ -83,6 +92,13 @@ const ListCat = () => {
             <button onClick={() => handleDelete(item.id, isLocal)}>
               Delete
             </button>
+            {alreadyOnFavorites(item.id) ? (
+              <button onClick={() => removeFavorite(item.id)}>Remove</button>
+            ) : (
+              <button onClick={() => addToFavorites(item)}>
+                Add To Favories
+              </button>
+            )}
           </div>
         );
       })}
