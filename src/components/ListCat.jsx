@@ -5,6 +5,7 @@ import { useState } from "react";
 const ListCat = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [deletes, setDeletes] = useState([]);
 
   const {
     data: cat,
@@ -22,12 +23,19 @@ const ListCat = () => {
 
   console.log("isi cat", cat);
 
+  const deleteCat = (catId) => {
+    setDeletes([...deletes, catId]);
+  };
+
+  const filteredCats =
+    cat?.data?.filter((item) => !deletes.includes(item.name)) || [];
+
   return (
     <div>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error loading cats</p>}
 
-      {cat?.data?.map((item) => (
+      {filteredCats.map((item) => (
         <div key={item.id}>
           <img src={item.image} alt={item.name} width={300} />
           <p>
@@ -42,6 +50,8 @@ const ListCat = () => {
           <p>
             <strong>Temprament:</strong> {item.temperament}
           </p>
+
+          <button onClick={() => deleteCat(item.name)}>Delete</button>
         </div>
       ))}
 

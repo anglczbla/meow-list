@@ -9,10 +9,7 @@ const FormCat = () => {
     temperament: "",
   });
   const [listCat, setListCat] = useState([]);
-  console.log("isi list cat", listCat);
-
   const [preview, setPreview] = useState(null);
-  console.log("isi preview", preview);
 
   const handleChangeForm = (e) => {
     const { name, value } = e.target;
@@ -51,6 +48,10 @@ const FormCat = () => {
       temperament: "",
     });
     setPreview(null);
+  };
+
+  const deleteCat = (nameCat) => {
+    setListCat(listCat.map((item) => item.name !== nameCat));
   };
 
   return (
@@ -126,6 +127,7 @@ const FormCat = () => {
             <p>
               <strong>Temperament:</strong> {cat.temperament}
             </p>
+            <button onClick={() => deleteCat(cat.name)}>Delete Cat</button>
           </div>
         ))}
       </div>
