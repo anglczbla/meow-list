@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useCatContext } from "../context/CatContext";
 
 const FormCat = () => {
+  const { addCat } = useCatContext();
   const [formCat, setFormCat] = useState({
     name: "",
     image: null,
@@ -8,8 +10,9 @@ const FormCat = () => {
     description: "",
     temperament: "",
   });
-  const [listCat, setListCat] = useState([]);
+
   const [preview, setPreview] = useState(null);
+  console.log("isi preview", preview);
 
   const handleChangeForm = (e) => {
     const { name, value } = e.target;
@@ -18,6 +21,8 @@ const FormCat = () => {
 
   const handleFile = (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
     setFormCat({ ...formCat, image: file });
 
     const reader = new FileReader();
@@ -31,14 +36,15 @@ const FormCat = () => {
     e.preventDefault();
 
     const newCat = {
+      id: Date.now(),
       name: formCat.name,
       origin: formCat.origin,
       description: formCat.description,
       temperament: formCat.temperament,
-      preview: preview,
+      image: preview,
     };
 
-    setListCat([...listCat, newCat]);
+    addCat(newCat);
 
     setFormCat({
       name: "",
@@ -48,10 +54,6 @@ const FormCat = () => {
       temperament: "",
     });
     setPreview(null);
-  };
-
-  const deleteCat = (nameCat) => {
-    setListCat(listCat.map((item) => item.name !== nameCat));
   };
 
   return (
@@ -100,37 +102,6 @@ const FormCat = () => {
         />
         <button type="submit">Submit</button>
       </form>
-
-      <div>
-        <h2>List Cats</h2>
-        {listCat.map((cat, index) => (
-          <div
-            key={index}
-            style={{
-              border: "1px solid white",
-              padding: "10px",
-              margin: "10px",
-            }}
-          >
-            {cat.preview && (
-              <img src={cat.preview} alt={cat.name} width={300} />
-            )}
-            <p>
-              <strong>Name:</strong> {cat.name}
-            </p>
-            <p>
-              <strong>Origin:</strong> {cat.origin}
-            </p>
-            <p>
-              <strong>Description:</strong> {cat.description}
-            </p>
-            <p>
-              <strong>Temperament:</strong> {cat.temperament}
-            </p>
-            <button onClick={() => deleteCat(cat.name)}>Delete Cat</button>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
