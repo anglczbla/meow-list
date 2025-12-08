@@ -1,29 +1,32 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import FavoriteCat from "./components/FavoriteCat";
 import FormCat from "./components/FormCat";
-import ListCat from "./components/ListCat";
 import Navbar from "./components/Navbar";
 import CatProvider from "./context/CatContext";
+import DetailCat from "./pages/DetailCat";
+import Favorites from "./pages/Favorites";
+import Home from "./pages/Home";
+
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <CatProvider>
         <BrowserRouter>
-          <CatProvider>
+          <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
             <Navbar />
             <Routes>
-              <Route path="/" element={<ListCat />} />
-              <Route path="/addcat" element={<FormCat />} />
-              <Route path="/favorite" element={<FavoriteCat />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/add" element={<FormCat />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/cat/:id" element={<DetailCat />} />
             </Routes>
-          </CatProvider>
+          </div>
         </BrowserRouter>
-      </QueryClientProvider>
-    </>
+      </CatProvider>
+    </QueryClientProvider>
   );
 }
 
