@@ -1,42 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useState } from "react";
 import { useCatContext } from "../context/CatContext";
 
 const ListCat = () => {
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [deletes, setDeletes] = useState([]);
-  console.log("isi delete", deletes);
-
   const {
     listCat,
     deleteCat,
     addToFavorites,
     alreadyOnFavorites,
     removeFavorite,
-  } = useCatContext();
-  console.log("isi listcat", listCat);
-
-  const {
-    data: cat,
+    allCats,
+    cat,
     isLoading,
     isError,
-  } = useQuery({
-    queryKey: ["cat", page, limit],
-    queryFn: async () => {
-      const response = await axios.get(
-        `https://api.freeapi.app/api/v1/public/cats?page=${page}&limit=${limit}`
-      );
-      return response.data.data;
-    },
-  });
-
-  const filteredCats =
-    cat?.data?.filter((item) => !deletes.includes(item.id)) || [];
-
-  const allCats = [...listCat, ...filteredCats];
-  console.log("all cats", allCats);
+    deletes,
+    page,
+    limit,
+    setPage,
+    setLimit,
+    setDeletes,
+  } = useCatContext();
 
   const handleDelete = (catId, isLocal) => {
     if (isLocal) {
@@ -45,8 +26,6 @@ const ListCat = () => {
       setDeletes([...deletes, catId]);
     }
   };
-
-  console.log("isi cat", cat);
 
   return (
     <div>

@@ -1,10 +1,33 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { createContext, useContext, useState } from "react";
 
 export const CatContext = createContext();
 const CatProvider = ({ children }) => {
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [listCat, setListCat] = useState([]);
   const [favorite, setFavorite] = useState([]);
-  console.log("isi favorite", favorite);
+  const [deletes, setDeletes] = useState([]);
+
+  const {
+    data: cat,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["cat", page, limit],
+    queryFn: async () => {
+      const response = await axios.get(
+        `https://api.freeapi.app/api/v1/public/cats?page=${page}&limit=${limit}`
+      );
+      return response.data.data;
+    },
+  });
+
+  const filteredCats =
+    cat?.data?.filter((item) => !deletes.includes(item.id)) || [];
+
+  const allCats = [...listCat, ...filteredCats];
 
   const addCat = (cat) => {
     setListCat([...listCat, cat]);
@@ -20,11 +43,7 @@ const CatProvider = ({ children }) => {
 
   const alreadyOnFavorites = (id) => {
     const isExist = favorite.some((cat) => cat.id == id);
-    console.log("isi isexist", isExist);
-
-    if (isExist) {
-      return isExist;
-    }
+    return isExist;
   };
 
   const removeFavorite = (id) => {
@@ -38,6 +57,16 @@ const CatProvider = ({ children }) => {
     addToFavorites,
     alreadyOnFavorites,
     removeFavorite,
+    allCats,
+    cat,
+    isLoading,
+    isError,
+    deletes,
+    page,
+    limit,
+    setPage,
+    setLimit,
+    setDeletes,
   };
 
   return (
