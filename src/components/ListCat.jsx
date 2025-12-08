@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import { useCatContext } from "../context/CatContext";
 
 const ListCat = () => {
@@ -14,6 +15,19 @@ const ListCat = () => {
     setPage,
     handleDelete,
   } = useCatContext();
+  const [search, setSearch] = useSearchParams();
+
+  const searching = search.get("q") || "";
+
+  const handleSearch = (e) => {
+    setSearch({
+      q: e.target.value,
+    });
+  };
+
+  const filterSearchCat = allCats.filter((cat) =>
+    cat.name.toLowerCase().includes(searching.toLowerCase())
+  );
 
   return (
     <div>
@@ -22,7 +36,14 @@ const ListCat = () => {
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error loading cats</p>}
 
-      {allCats.map((item) => {
+      <input
+        type="text"
+        value={searching}
+        placeholder="Search Cat"
+        onChange={handleSearch}
+      />
+
+      {filterSearchCat.map((item) => {
         const isLocal = listCat.some((cat) => cat.id === item.id);
         console.log("isi islocal", isLocal);
 
