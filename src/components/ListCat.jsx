@@ -3,7 +3,6 @@ import { useCatContext } from "../context/CatContext";
 const ListCat = () => {
   const {
     listCat,
-    deleteCat,
     addToFavorites,
     alreadyOnFavorites,
     removeFavorite,
@@ -11,21 +10,10 @@ const ListCat = () => {
     cat,
     isLoading,
     isError,
-    deletes,
     page,
-    limit,
     setPage,
-    setLimit,
-    setDeletes,
+    handleDelete,
   } = useCatContext();
-
-  const handleDelete = (catId, isLocal) => {
-    if (isLocal) {
-      deleteCat(catId);
-    } else {
-      setDeletes([...deletes, catId]);
-    }
-  };
 
   return (
     <div>

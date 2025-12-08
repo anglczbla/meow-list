@@ -50,6 +50,14 @@ const CatProvider = ({ children }) => {
     setFavorite(favorite.filter((cat) => cat.id !== id));
   };
 
+  const handleDelete = (catId, isLocal) => {
+    if (isLocal) {
+      deleteCat(catId);
+    } else {
+      setDeletes([...deletes, catId]);
+    }
+  };
+
   const value = {
     addCat,
     deleteCat,
@@ -67,7 +75,9 @@ const CatProvider = ({ children }) => {
     setPage,
     setLimit,
     setDeletes,
+    setListCat,
     favorite,
+    handleDelete,
   };
 
   return (
