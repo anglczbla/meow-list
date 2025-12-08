@@ -28,7 +28,7 @@ const CatProvider = ({ children }) => {
   };
 
   const removeFavorite = (id) => {
-    setListCat(listCat.filter((cat) => cat.id !== id));
+    setFavorite(favorite.filter((cat) => cat.id !== id));
   };
 
   const value = {
