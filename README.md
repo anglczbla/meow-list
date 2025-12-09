@@ -1,16 +1,50 @@
-# React + Vite
+# 🐱 Meow List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and cute web application for cat
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Browse Cats** - View all available cats for adoption with their photos and basic info
+- **Cat Details** - See detailed information about each cat including age, breed, and personality
+- **Add New Cats** - Easily add new cats 
+- **Favorites** - Mark and manage your favorite cats
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- React Query
+- Tailwind CSS
+- Lucide Icons
 
-## Expanding the ESLint configuration
+## Screenshots
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Home Page
+
+![Home Page](https://github.com/user-attachments/assets/e17fcb14-601a-495e-86f3-09dcbe8be5a4)
+
+### Cat Details
+
+![Cat Details](https://github.com/user-attachments/assets/8460e300-8996-4f87-bc51-d7a5161b405d)
+
+### Add New Cat
+
+![Add New Cat](https://github.com/user-attachments/assets/e9fe79a9-efea-4a71-9ae0-65c56e25d8a4)
+
+### Favorites
+
+![Favorites](https://github.com/user-attachments/assets/9a144411-0753-4574-8539-dff3ce913051)
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+Made with 💙 for cat lovers
